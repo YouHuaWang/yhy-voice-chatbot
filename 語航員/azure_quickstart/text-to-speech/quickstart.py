@@ -2,11 +2,19 @@
 # Licensed under the MIT license. See LICENSE.md file in the project root for full license information.
 
 # <code>
+from dotenv import load_dotenv
+import os
 import azure.cognitiveservices.speech as speechsdk
+
+# 載入 .env 檔案
+load_dotenv()
+
+# 從 .env 中取得設定值
+speech_key = os.getenv("SPEECH_KEY")
+service_region = os.getenv("SERVICE_REGION")
 
 # Creates an instance of a speech config with specified subscription key and service region.
 # Replace with your own subscription key and service region (e.g., "westus").
-speech_key, service_region = "FWnsaJKysYKwZlNTGq4Zyjyoc2v7hZVBf0zsB4MAk1R6E566VcVTJQQJ99AKACYeBjFXJ3w3AAAYACOGAqsJ", "eastus"
 speech_config = speechsdk.SpeechConfig(subscription=speech_key, region=service_region)
 
 # Set the voice name, refer to https://aka.ms/speech/voices/neural for full list.
