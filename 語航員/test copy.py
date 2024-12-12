@@ -1,5 +1,39 @@
-import azure.cognitiveservices.speech as speechsdk 
+from dotenv import load_dotenv
+import os
+import azure.cognitiveservices.speech as speechsdk
 from datetime import datetime, timedelta
+
+# 載入 .env 檔案
+load_dotenv()
+
+# 從 .env 中取得設定值
+speech_key = os.getenv("SPEECH_KEY")
+service_region = os.getenv("SERVICE_REGION")
+
+# 初始化語音設定
+speech_config = speechsdk.SpeechConfig(subscription=speech_key, region=service_region)
+speech_config.speech_recognition_language = "zh-TW"
+
+# 語音合成設定
+speech_config.speech_synthesis_voice_name = "zh-TW-HsiaoChenNeural"
+audio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)
+
+# 初始化語音識別與語音合成
+speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)
+speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config)
+
+# 獲取今天的日期
+def get_today_date():
+    today = datetime.now()
+    return today.strftime("%m月%d日")
+
+# 獲取明天的日期
+def get_tomorrow_date():
+    tomorrow = datetime.now() + timedelta(days=1)
+    return tomorrow.strftime("%m月%d日")
+
+# 其餘程式碼保持不變...
+
 
 # 初始化語音設定
 speech_key, service_region = "FWnsaJKysYKwZlNTGq4Zyjyoc2v7hZVBf0zsB4MAk1R6E566VcVTJQQJ99AKACYeBjFXJ3w3AAAYACOGAqsJ", "eastus"
