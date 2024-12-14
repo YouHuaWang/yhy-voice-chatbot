@@ -4,7 +4,7 @@
 報名序號：20241013XHRw  
 團隊名稱：語航員
 
-## Azure 提供之參考資料
+## 參考程式範例
 
 - [Azure Cognitive Services Speech SDK 示例](https://github.com/Azure-Samples/cognitive-services-speech-sdk.git)
   （path：quickstart/python）
