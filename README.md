@@ -7,4 +7,4 @@
 ## Azure 提供之參考資料
 
 - [Azure Cognitive Services Speech SDK 示例](https://github.com/Azure-Samples/cognitive-services-speech-sdk.git)
-  path：quickstart/python
+  （path：quickstart/python）
