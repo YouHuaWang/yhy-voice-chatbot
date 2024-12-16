@@ -55,7 +55,7 @@ def respond_to_query(user_input):
         if "更改" in user_input and "訂位" in user_input and "機票" in user_input:
             return "您好，您可以透過官網的『管理行程』頁面來進行更改，或撥打客服專線獲得協助。是否還有其他想詢問？", True
 
-    # 一般模式
+    # 標準模式
     if "今天" in user_input and "CI108" in user_input and "延誤" in user_input:
         return f"{today_date}的CI108航班因天氣不佳有延誤，其登機時間將由原訂10點延後至14點，是否還有其他想詢問？", True
     if "明天" in user_input and "CI108" in user_input and "取消" in user_input:
@@ -126,7 +126,7 @@ def adjust_speech_parameters(response_mode):
         </speak>
         """
     elif response_mode == "normal":
-        # 一般模式
+        # 標準模式
         ssml = """
         <speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xmlns:lex='http://www.w3.org/2001/10/synthesis/lexicon'>
             <voice name="zh-TW-HsiaoChenNeural">
@@ -144,20 +144,20 @@ def speak_response(response_text, response_mode):
         print("語音合成失敗：{}".format(result.reason))
 
 # 開始互動
-response_mode = "normal"  # 預設模式為一般模式
+response_mode = "normal"  # 預設模式為標準模式
 
-print("語航員：您好，請問您希望使用哪一種服務模式？1：一般模式，2：緊急模式，3：關懷模式。")
-speak_response("您好，請問您希望使用哪一種服務模式？1：一般模式，2：緊急模式，3：關懷模式。", response_mode)
+print("語航員：您好，請問您希望使用哪一種服務模式？1：標準模式，2：緊急模式，3：關懷模式。")
+speak_response("您好，請問您希望使用哪一種服務模式？1：標準模式，2：緊急模式，3：關懷模式。", response_mode)
 
 result = speech_recognizer.recognize_once()
 if result.reason == speechsdk.ResultReason.RecognizedSpeech:
     user_input = result.text
     print("使用者：{}".format(user_input))
 
-    if "1" in user_input or "一" in user_input or "一般" in user_input:
+    if "1" in user_input or "一" in user_input or "標準" in user_input:
         response_mode = "normal"
-        print("語航員：已切換到一般模式。請問您有什麼問題？")
-        speak_response("已切換到一般模式。請問您有什麼問題？", response_mode)
+        print("語航員：已切換到標準模式。請問您有什麼問題？")
+        speak_response("已切換到標準模式。請問您有什麼問題？", response_mode)
     elif "2" in user_input or "二" in user_input or "緊急" in user_input:
         response_mode = "urgent"
         print("語航員：已切換到緊急模式。請問您有什麼問題？")
@@ -167,8 +167,8 @@ if result.reason == speechsdk.ResultReason.RecognizedSpeech:
         print("語航員：已切換到關懷模式。請問您有什麼問題？")
         speak_response("已切換到關懷模式。請問您有什麼問題？", response_mode)
 else:
-    print("未能識別語音，將使用一般模式。請問您有什麼問題？")
-    speak_response("未能識別語音，將使用普通模式。請問您有什麼問題？", response_mode)
+    print("未能識別語音，將使用標準模式。請問您有什麼問題？")
+    speak_response("未能識別語音，將使用標準模式。請問您有什麼問題？", response_mode)
 
 while True:
     user_input_result = speech_recognizer.recognize_once()
